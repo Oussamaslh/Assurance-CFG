@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="styleee.css">
+</head>
+<body>
+<div class="banner">
+    <div class="navbar">
+    <img src="cfg.png" class="logo">
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a th:href="@{/profile(id=${employee.id})}">Profil</a></li>
+    </ul>
+</div>
+
+    <div class="content">
+        <img src="center.png">
+        <div>
+            <a href="/contrat" class="button"><span></span>Contrat</a>
+            <a href="/search-contrat" class="button"><span></span>Search Contrat</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

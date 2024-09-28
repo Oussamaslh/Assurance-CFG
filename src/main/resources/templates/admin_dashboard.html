@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/styless.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome for icons -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script>let employees = [];
+    let contracts = [];
+    let currentEmployeeId = null;
+    let currentContractId = null;
+
+    // Function to open the employee modal
+    function openEmployeeModal() {
+        document.getElementById('employeeModal').style.display = 'block';
+        document.getElementById('employeeName').value = '';
+        document.getElementById('employeeEmail').value = '';
+        document.getElementById('employeeRole').value = 'User';
+    }
+
+    // Function to close the employee modal
+    function closeEmployeeModal() {
+        document.getElementById('employeeModal').style.display = 'none';
+    }
+
+    // Function to save employee information
+    function saveEmployee() {
+        const name = document.getElementById('employeeName').value;
+        const email = document.getElementById('employeeEmail').value;
+        const role = document.getElementById('employeeRole').value;
+
+        if (currentEmployeeId) {
+            const employee = employees.find(emp => emp.id === currentEmployeeId);
+            employee.name = name;
+            employee.email = email;
+            employee.role = role;
+        } else {
+            const newEmployee = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                role: role
+            };
+            employees.push(newEmployee);
+        }
+
+        renderEmployeeTable();
+        closeEmployeeModal();
+    }
+
+    // Function to render the employee table
+    function renderEmployeeTable() {
+        const tbody = document.getElementById('employeeTableBody');
+        tbody.innerHTML = '';
+        employees.forEach(employee => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>${employee.id}</td>
+            <td>${employee.name}</td>
+            <td>${employee.email}</td>
+            <td>${employee.role}</td>
+            <td>
+                <a class="action-link" onclick="editEmployee(${employee.id})">Edit</a> |
+                <a class="action-link" onclick="deleteEmployee(${employee.id})">Delete</a>
+            </td>
+        `;
+            tbody.appendChild(row);
+        });
+    }
+
+    // Function to edit an employee
+    function editEmployee(id) {
+        const employee = employees.find(emp => emp.id === id);
+        document.getElementById('employeeName').value = employee.name;
+        document.getElementById('employeeEmail').value = employee.email;
+        document.getElementById('employeeRole').value = employee.role;
+        currentEmployeeId = id;
+        openEmployeeModal();
+    }
+
+    // Function to delete an employee
+    function deleteEmployee(id) {
+        employees = employees.filter(emp => emp.id !== id);
+        renderEmployeeTable();
+    }
+
+    // Contract functions
+    function openContractModal() {
+        document.getElementById('contractModal').style.display = 'block';
+        document.getElementById('contractCIN').value = '';
+        document.getElementById('contractClientCode').value = '';
+        document.getElementById('contractPartner').value = '';
+    }
+
+    function closeContractModal() {
+        document.getElementById('contractModal').style.display = 'none';
+    }
+
+    function saveContract() {
+        const cin = document.getElementById('contractCIN').value;
+        const clientCode = document.getElementById('contractClientCode').value;
+        const partner = document.getElementById('contractPartner').value;
+
+        if (currentContractId) {
+            const contract = contracts.find(cnt => cnt.id === currentContractId);
+            contract.cin = cin;
+            contract.clientCode = clientCode;
+            contract.partner = partner;
+        } else {
+            const newContract = {
+                id: Date.now(),
+                cin: cin,
+                clientCode: clientCode,
+                partner: partner
+            };
+            contracts.push(newContract);
+        }
+
+        renderContractTable();
+        closeContractModal();
+    }
+
+    function renderContractTable() {
+        const tbody = document.getElementById('contractTableBody');
+        tbody.innerHTML = '';
+        contracts.forEach(contract => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>${contract.id}</td>
+            <td>${contract.cin}</td>
+            <td>${contract.clientCode}</td>
+            <td>${contract.partner}</td>
+            <td>
+                <a class="action-link" onclick="editContract(${contract.id})">Edit</a> |
+                <a class="action-link" onclick="deleteContract(${contract.id})">Delete</a>
+            </td>
+        `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function editContract(id) {
+        const contract = contracts.find(cnt => cnt.id === id);
+        document.getElementById('contractCIN').value = contract.cin;
+        document.getElementById('contractClientCode').value = contract.clientCode;
+        document.getElementById('contractPartner').value = contract.partner;
+        currentContractId = id;
+        openContractModal();
+    }
+
+    function deleteContract(id) {
+        contracts = contracts.filter(cnt => cnt.id !== id);
+        renderContractTable();
+    }
+
+    // Print Contracts
+    function printContracts() {
+        const printContent = contracts.map(contract => `
+        <div class="contract">
+            <p><strong>ID:</strong> ${contract.id}</p>
+            <p><strong>CIN:</strong> ${contract.cin}</p>
+            <p><strong>Client Code:</strong> ${contract.clientCode}</p>
+            <p><strong>Commercial Partner:</strong> ${contract.partner}</p>
+            <hr>
+        </div>
+    `).join('');
+
+        const newWindow = window.open('', '', 'height=500,width=800');
+        newWindow.document.write('<html><head><title>Print Contracts</title>');
+        newWindow.document.write('<link rel="stylesheet" href="style.css">'); // Inclure les styles
+        newWindow.document.write('<style>'); // Ajouter des styles en ligne pour l'impression
+        newWindow.document.write('body { font-family: Arial, sans-serif; padding: 20px; }');
+        newWindow.document.write('h1 { text-align: center; }');
+        newWindow.document.write('.contract { margin-bottom: 20px; }');
+        newWindow.document.write('p { margin: 5px 0; }');
+        newWindow.document.write('</style>');
+        newWindow.document.write('</head><body>');
+        newWindow.document.write('<h1>Contract List</h1>');
+        newWindow.document.write(printContent);
+        newWindow.document.write('</body></html>');
+        newWindow.document.close();
+        newWindow.print();
+    }
+
+    // Dummy data for demonstration purposes
+    const contractData = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+            label: 'Nombre de Contrats par Mois',
+            data: [10, 25, 15, 30, 20, 35, 40, 50, 60, 70, 80, 90], // Exemple de données
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    const revenueData = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+            label: 'Montant Total des Prélèvements',
+            data: [1000, 2000, 1500, 3000, 2500, 3500, 4000, 5000, 6000, 7000, 8000, 9000], // Exemple de données
+            backgroundColor: 'rgba(153, 102, 255, 0.5)',
+            borderColor: 'rgba(153, 102, 255, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    // Create Charts
+    function createCharts() {
+        const ctxContracts = document.getElementById('contractsChart').getContext('2d');
+        const contractsChart = new Chart(ctxContracts, {
+            type: 'bar', // Type de graphique
+            data: contractData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+        const revenueChart = new Chart(ctxRevenue, {
+            type: 'line', // Type de graphique
+            data: revenueData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Appeler la fonction pour créer les graphiques
+    createCharts();
+
+    // Admin Modal functions
+    function openAdminModal() {
+        document.getElementById('adminModal').style.display = 'block';
+        document.getElementById('adminName').value = '';
+        document.getElementById('adminEmail').value = '';
+    }
+
+    function closeAdminModal() {
+        document.getElementById('adminModal').style.display = 'none';
+    }
+
+    function saveAdmin() {
+        const name = document.getElementById('adminName').value;
+        const email = document.getElementById('adminEmail').value;
+
+        console.log(`New Admin: ${name}, Email: ${email}`);
+
+        closeAdminModal();
+    }</script><!-- Chart.js for analytics -->
+</head>
+<body>
+<div class="sidebar">
+    <h2>Admin Panel</h2>
+    <ul>
+        <li><a href="#employee-management"><i class="fas fa-users"></i> Employees</a></li>
+        <li><a href="#contract-management"><i class="fas fa-file-contract"></i> Contracts</a></li>
+        <li><a href="#analytics-dashboard"><i class="fas fa-chart-line"></i> Analytics</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <header>
+        <h1>Admin Dashboard</h1>
+    </header>
+
+    <section id="employee-management" class="management-section">
+        <h2>Employee Management</h2>
+        <button onclick="window.location.href='/admin/signup'">Nouveau Admin</button>
+        <div class="table-container">
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+                <tr th:each="employee : ${employees}">
+                    <td th:text="${employee.id}"></td>
+                    <td th:text="${employee.name}"></td>
+                    <td th:text="${employee.email}"></td>
+                    <td th:text="${employee.role}"></td>
+                    <td>
+                        <a th:href="@{/admin/employee/edit/{id}(id=${employee.id})}" class="action-link">
+                            <i class="fas fa-edit"></i>
+                        </a> |
+                        <a th:href="@{/admin/employee/delete/{id}(id=${employee.id})}" class="action-link">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="contract-management" class="management-section">
+        <h2>Contract Management</h2>
+        <button class="primary-button" onclick="openContractModal()">Add New Contract</button>
+        <button class="primary-button" onclick="printContracts()">Print Contracts</button>
+        <div class="table-container">
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>CIN</th>
+                    <th>Code Client</th>
+                    <th>Partenaire Commercial</th>
+                    <th>CEI</th>
+                    <th>Agence</th>
+
+                </tr>
+                <tr th:each="contrat : ${contrats}">
+                    <td th:text="${contrat.id}"></td>
+                    <td th:text="${contrat.cin}"></td>
+                    <td th:text="${contrat.codeClient}"></td>
+                    <td th:text="${contrat.partenaireCommercial}"></td>
+                    <td th:text="${contrat.cei}"></td>
+                    <td th:text="${contrat.agence}"></td>
+                    <td>
+                        <a th:href="@{/print}" class="action-link">
+                            <i class="fas fa-print"></i>
+                        </a> |
+                        <a th:href="@{/admin/contrat/edit/{id}(id=${contrat.id})}" class="action-link">
+                            <i class="fas fa-edit"></i>
+                        </a> |
+                        <a th:href="@{/admin/contrat/delete/{id}(id=${contrat.id})}" class="action-link">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <section id="analytics-dashboard" class="management-section">
+        <h2>Tableau de Bord Analytique</h2>
+        <canvas id="contractsChart" width="400" height="200"></canvas>
+        <canvas id="revenueChart" width="400" height="200"></canvas>
+    </section>
+</div>
+
+<!-- Employee Modal -->
+<div id="employeeModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeEmployeeModal()">&times;</span>
+        <h2>Add/Edit Employee</h2>
+        <input type="text" id="employeeName" placeholder="Name" required>
+        <input type="email" id="employeeEmail" placeholder="Email" required>
+        <select id="employeeRole">
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+        </select>
+        <button onclick="saveEmployee()">Save</button>
+    </div>
+</div>
+
+
+
+<!-- Contract Modal -->
+<div id="contractModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeContractModal()">&times;</span>
+        <h2>Add/Edit Contract</h2>
+        <input type="text" id="contractCIN" placeholder="CIN" required>
+        <input type="text" id="contractClientCode" placeholder="Client Code" required>
+        <input type="text" id="contractPartner" placeholder="Commercial Partner" required>
+        <button onclick="saveContract()">Save</button>
+    </div>
+</div>
+
+<!-- Admin Modal -->
+<div id="adminModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAdminModal()">&times;</span>
+        <h2>Add New Admin</h2>
+        <input type="text" id="adminName" placeholder="Admin Name" required>
+        <input type="email" id="adminEmail" placeholder="Admin Email" required>
+        <button onclick="saveAdmin()">Save Admin</button>
+    </div>
+</div>
+
+</body>
+</html>

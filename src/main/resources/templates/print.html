@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Détails du Contrat</title>
+    <style>
+        /* Ajoutez du style si nécessaire */
+        .contract-details {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .contract-details label {
+            font-weight: bold;
+        }
+        .contract-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="contract-details">
+    <h1>Détails du Contrat</h1>
+    <p><label>ID:</label> <span th:text="${contrat.id}"></span></p>
+    <p><label>Code Client:</label> <span th:text="${contrat.codeClient}"></span></p>
+    <p><label>Partenaire Commercial:</label> <span th:text="${contrat.partenaireCommercial}"></span></p>
+    <p><label>CEI:</label> <span th:text="${contrat.cei}"></span></p>
+    <p><label>Agence:</label> <span th:text="${contrat.agence}"></span></p>
+    <p><label>Produit / Pack:</label> <span th:text="${contrat.produitPack}"></span></p>
+    <p><label>Date Etablissement:</label> <span th:text="${contrat.dateEtablissement}"></span></p>
+    <p><label>Date Début Abonnement:</label> <span th:text="${contrat.dateDebutAbonnement}"></span></p>
+    <p><label>Date Fin Abonnement:</label> <span th:text="${contrat.dateFinAbonnement}"></span></p>
+    <p><label>Numéro Police:</label> <span th:text="${contrat.numeroPolice}"></span></p>
+    <p><label>Périodicité:</label> <span th:text="${contrat.periodicite}"></span></p>
+    <p><label>Montant Assurance:</label> <span th:text="${contrat.montantAssurance}"></span></p>
+    <p><label>Versement Initial:</label> <span th:text="${contrat.versementInitial}"></span></p>
+    <p><label>Origine des Fonds:</label> <span th:text="${contrat.origineDesFonds}"></span></p>
+    <p><label>Origine des Fonds (précisée):</label> <span th:text="${contrat.origineDesFondsPrecisee}"></span></p>
+    <p><label>Frais Acquisition:</label> <span th:text="${contrat.fraisAcquisition}"></span></p>
+    <p><label>Frais Acquisition (précisée):</label> <span th:text="${contrat.fraisAcquisitionPrecisee}"></span></p>
+    <p><label>Type de Prélèvement:</label> <span th:text="${contrat.typeDePrelevement}"></span></p>
+    <p><label>Garantie Facultative:</label> <span th:text="${contrat.garantieFacultative}"></span></p>
+    <p><label>RIB:</label> <span th:text="${contrat.rib}"></span></p>
+    <p><label>Num Contrat Reformate:</label> <span th:text="${contrat.numContratReformate}"></span></p>
+    <p><label>Jour Prélèvement:</label> <span th:text="${contrat.jourPrelevement}"></span></p>
+    <p><label>Montant Commission:</label> <span th:text="${contrat.montantCommission}"></span></p>
+    <p><label>Montant TVA:</label> <span th:text="${contrat.montantTva}"></span></p>
+    <p><label>Montant NET:</label> <span th:text="${contrat.montantNet}"></span></p>
+    <p><label>Montant À Virer:</label> <span th:text="${contrat.montantAVirer}"></span></p>
+</div>
+</body>
+</html>

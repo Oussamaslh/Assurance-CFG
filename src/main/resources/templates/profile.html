@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General reset */
+        * {
+            box-sizing: border-box; /* Ensures padding and margin are included in the element's total width/height */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif; /* Modern sans-serif font */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            background-color: #f0f4f8; /* Light background color */
+            color: #333; /* Dark grey text color */
+            display: flex; /* Flexbox layout */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            height: 100vh; /* Full viewport height */
+        }
+
+        /* Profile card styles */
+        .profile-card {
+            background-color: #ffffff; /* White background for the card */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            padding: 20px; /* Padding inside the card */
+            width: 90%; /* Full width on small screens */
+            max-width: 400px; /* Maximum width for larger screens */
+            text-align: center; /* Center text inside the card */
+        }
+
+        h1 {
+            color: #f1081b; /* Bootstrap primary color for heading */
+            margin-bottom: 20px; /* Space below the heading */
+        }
+
+        p {
+            margin: 10px 0; /* Vertical margin for paragraphs */
+            font-size: 18px; /* Base font size for paragraphs */
+        }
+
+        span {
+            font-weight: bold; /* Bold text for spans */
+            color: #555; /* Slightly lighter grey for the span text */
+        }
+
+        a {
+            display: inline-block; /* Make the link an inline block */
+            margin-top: 20px; /* Space above the link */
+            text-decoration: none; /* Remove underline */
+            color: #ffffff; /* White text color */
+            background-color: #2be80e; /* Bootstrap primary color */
+            padding: 10px 20px; /* Padding around the link */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+        }
+
+        a:hover {
+            background-color: #2be80e; /* Darker blue on hover */
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            .profile-card {
+                width: 95%; /* Slightly wider on smaller screens */
+            }
+
+            h1 {
+                font-size: 24px; /* Smaller font size for heading */
+            }
+
+            p {
+                font-size: 16px; /* Smaller font size for paragraphs */
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="profile-card">
+    <h1>Profile Information</h1>
+    <p>ID: <span th:text="${employee.id}"></span></p>
+    <p>Name: <span th:text="${employee.name}"></span></p>
+    <p>Email: <span th:text="${employee.email}"></span></p>
+    <a href="/home">Back to Home</a>
+</div>
+</body>
+</html>

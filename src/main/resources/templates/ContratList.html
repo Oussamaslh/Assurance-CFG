@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Contrats</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #f1081b;
+            color: white;
+            padding: 15px;
+            width: 100%;
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .form-row {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .form-row .form-group {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .form-row .form-group label {
+            font-weight: 700;
+            font-size: 14px;
+            margin-right: 10px;
+            min-width: 70px;
+        }
+
+        .form-row .form-group input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+            font-size: 16px;
+        }
+
+        .form-container button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            align-self: flex-end;
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f1081b;
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+    </style>
+</head>
+<body>
+<header>List of Contrats</header>
+
+<div class="form-container">
+    <form th:action="@{/contrats/search}" method="get">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="searchId">ID:</label>
+                <input type="text" id="searchId" name="id" placeholder="Enter ID">
+            </div>
+            <div class="form-group">
+                <label for="searchCin">CIN:</label>
+                <input type="text" id="searchCin" name="cin" placeholder="Enter CIN">
+            </div>
+        </div>
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<div class="form-container">
+    <form th:action="@{/contrats/search}" method="get">
+        <label for="searchprelevement"> Prelevement:</label>
+        <input type="date" id="searchprelevement" name="prelevement">
+
+        <button type="submit">Search</button>
+    </form>
+</div>
+
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>CIN</th>
+            <th>Code Client</th>
+            <th>Partenaire Commercial</th>
+            <th>CEI</th>
+            <th>Agence</th>
+            <th>Produit / Pack</th>
+            <th>Date Etablissement</th>
+            <th>Date Debut Abonnement</th>
+            <th>Date Fin Abonnement</th>
+            <th>Numéro Police</th>
+            <th>Périodicité</th>
+            <th>Montant Assurance</th>
+            <th>Versement Initial</th>
+            <th>Origine des Fonds</th>
+            <th>Origine des Fonds (Précisée)</th>
+            <th>Frais Acquisition</th>
+            <th>Frais Acquisition (Précisée)</th>
+            <th>Type de Prélèvement</th>
+            <th>Garantie Facultative</th>
+            <th>RIB</th>
+            <th>Num Contrat Reformate</th>
+            <th>Jour Prélèvement</th>
+            <th>Montant Commission</th>
+            <th>Montant TVA</th>
+            <th>Montant NET</th>
+            <th>Montant A Virer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="contrat : ${contrats}">
+            <td th:text="${contrat.id}"></td>
+            <td th:text="${contrat.cin}"></td>
+            <td th:text="${contrat.codeClient}"></td>
+            <td th:text="${contrat.partenaireCommercial}"></td>
+            <td th:text="${contrat.cei}"></td>
+            <td th:text="${contrat.agence}"></td>
+            <td th:text="${contrat.produitPack}"></td>
+            <td th:text="${contrat.dateEtablissement}"></td>
+            <td th:text="${contrat.dateDebutAbonnement}"></td>
+            <td th:text="${contrat.dateFinAbonnement}"></td>
+            <td th:text="${contrat.numeroPolice}"></td>
+            <td th:text="${contrat.periodicite}"></td>
+            <td th:text="${contrat.montantAssurance}"></td>
+            <td th:text="${contrat.versementInitial}"></td>
+            <td th:text="${contrat.origineDesFonds}"></td>
+            <td th:text="${contrat.origineDesFondsPrecisee}"></td>
+            <td th:text="${contrat.fraisAcquisition}"></td>
+            <td th:text="${contrat.fraisAcquisitionPrecisee}"></td>
+            <td th:text="${contrat.typeDePrelevement}"></td>
+            <td th:text="${contrat.garantieFacultative}"></td>
+            <td th:text="${contrat.rib}"></td>
+            <td th:text="${contrat.numContratReformate}"></td>
+            <td th:text="${contrat.jourPrelevement}"></td>
+            <td th:text="${contrat.montantCommission}"></td>
+            <td th:text="${contrat.montantTva}"></td>
+            <td th:text="${contrat.montantNet}"></td>
+            <td th:text="${contrat.montantAVirer}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

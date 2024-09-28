@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylee.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <title>Contrat</title>
+    <script>
+        function calculateMontantNet() {
+            const montantAssurance = parseFloat(document.getElementsByName('montantAssurance')[0].value) || 0;
+            const fraisAcquisition = parseFloat(document.getElementsByName('fraisAcquisition')[0].value) || 0;
+
+            const montantCommission = fraisAcquisition !== 0
+                ? Math.trunc(montantAssurance * (fraisAcquisition / 100) * 100) / 100
+                : Math.trunc(montantAssurance * (fraisAcquisition / 100) * 100) / 100;
+            document.getElementsByName('montantCommission')[0].value = montantCommission.toFixed(2);
+
+            const montantTva = fraisAcquisition === 99
+                ? Math.trunc(montantAssurance * (fraisAcquisition / 100) * 0.1071 * 100) / 100
+                : Math.trunc(montantCommission * 0.1071 * 100) / 100;
+            document.getElementsByName('montantTva')[0].value = montantTva.toFixed(2);
+
+            const montantNet = montantAssurance - montantCommission;
+            document.getElementsByName('montantNet')[0].value = montantNet.toFixed(2);
+
+            calculateMontantAVirer();
+        }
+
+        function calculateMontantAVirer() {
+            const montantNet = parseFloat(document.getElementsByName('montantNet')[0].value) || 0;
+            const montantTva = parseFloat(document.getElementsByName('montantTva')[0].value) || 0;
+            const montantAVirer = montantNet + montantTva;
+            document.getElementsByName('montantAVirer')[0].value = montantAVirer.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+<div class="background"></div>
+<img src="cfg.png" alt="Description de l'image" class="logo">
+
+<div class="container">
+    <header>Contrat</header>
+    <form action="/Contrat" method="post">
+        <div class="form first">
+            <div class="details personal">
+                <div class="fields">
+                    <div class="input-field">
+                        <span>ID</span>
+                        <input type="text" name="id" placeholder="Enter your ID" required>
+                    </div>
+                    <div class="input-field">
+                        <span>CIN</span>
+                        <input type="text" name="cin" placeholder="Enter your cin" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Code Client</span>
+                        <input type="text" name="codeClient" placeholder="Enter your code client" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Partenaire Commercial</span>
+                        <input type="text" name="partenaireCommercial" placeholder="Enter your partenaire commercial" required>
+                    </div>
+                    <div class="input-field">
+                        <span>CEI</span>
+                        <input type="text" name="cei" placeholder="Enter your CEI" required>
+                    </div>
+                    <div class="input-field">
+                        <label for="agence-input">Agence</label>
+                        <input type="text" id="agence-input" name="agence" placeholder="Agence" list="agence-options" required>
+                        <datalist id="agence-options">
+                            <option value="Agence 2 Mars (016)"></option>
+                            <option value="Agence Avenue du PHARE (017)"></option>
+                            <option value="Agence Gauthier (015)"></option>
+                            <option value="Casablanca  Massira (001)"></option>
+                            <option value="Marrakech (007)"></option>
+                            <option value="Rabat Hassan (026)"></option>
+                            <option value="Rabat-Ennakhil Hay Riad  (014)"></option>
+                            <option value="Rabat-Souissi (006)"></option>
+                            <option value="Tanger (009)"></option>
+                        </datalist>
+                    </div>
+
+                    <div class="input-field">
+                        <span>Produit / Pack</span>
+                        <input type="text" name="produitPack" placeholder="Enter your produit / pack" required>
+                    </div>
+                </div>
+            </div>
+            <div class="details personal">
+                <div class="fields">
+                    <div class="input-field">
+                        <span>Date Etablissement</span>
+                        <input type="date" name="dateEtablissement" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Date Debut Abonnement</span>
+                        <input type="date" name="dateDebutAbonnement" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Date Fin Abonnement</span>
+                        <input type="date" name="dateFinAbonnement" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Numéro Police</span>
+                        <input type="text" name="numeroPolice" placeholder="Enter your numéro police" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Périodicité</span>
+                        <input type="text" name="periodicite" placeholder="Enter your périodicité" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Montant assurance</span>
+                        <input type="number" step="0.01" name="montantAssurance" placeholder="Enter your montant assurance" required oninput="calculateMontantNet()">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form second">
+            <div class="details personal">
+                <div class="fields">
+                    <div class="input-field">
+                        <span>Versement initial</span>
+                        <input type="number" step="0.01" name="versementInitial" placeholder="Enter your versement initial" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Origine des fonds</span>
+                        <input type="text" name="origineDesFonds" placeholder="Enter your origine des fonds" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Origine des fonds (précisée)</span>
+                        <input type="text" name="origineDesFondsPrecisee" placeholder="Enter your origine des fonds précisée" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Frais acquisition</span>
+                        <input type="number" step="0.01" name="fraisAcquisition" placeholder="Enter your frais acquisition" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Frais acquisition (précisée)</span>
+                        <input type="text" name="fraisAcquisitionPrecisee" placeholder="Enter your frais acquisition précisée" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Type de prélèvement</span>
+                        <input type="text" name="typeDePrelevement" placeholder="Enter your type de prélèvement" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Garantie facultative</span>
+                        <input type="text" name="garantieFacultative" placeholder="Enter your garantie facultative" required>
+                    </div>
+                    <div class="input-field">
+                        <span>RIB</span>
+                        <input type="text" name="rib" placeholder="Enter your RIB" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Num contrat reformaté</span>
+                        <input type="text" name="numContratReformate" placeholder="Enter your num contrat reformaté" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Jour prélèvement</span>
+                        <input type="date" name="jourPrelevement" placeholder="Enter your jour prélèvement" required>
+                    </div>
+                    <div class="input-field">
+                        <span>Montant Commission</span>
+                        <input type="number" step="0.01" name="montantCommission" placeholder="Enter your montant commission" required oninput="calculateMontantNet()">
+                    </div>
+                    <div class="input-field">
+                        <span>Montant TVA</span>
+                        <input type="number" step="0.01" name="montantTva" placeholder="Enter your montant TVA" required oninput="calculateMontantAVirer()">
+                    </div>
+                    <div class="input-field">
+                        <span>Montant NET</span>
+                        <input type="number" step="0.01" name="montantNet" placeholder="Enter your montant NET" required readonly>
+                    </div>
+                    <div class="input-field">
+                        <span>Montant A virer</span>
+                        <input type="number" step="0.01" name="montantAVirer" placeholder="Enter your montant A virer" required readonly>
+                    </div>
+                </div>
+            </div>
+            <button type="submit">Enregistrer</button>
+        </div>
+    </form>
+</div>
+
+<div class="import-section">
+    <h2>Importer un Fichier Excel</h2>
+    <form method="POST" action="/import" enctype="multipart/form-data" class="import-form">
+        <div class="input-field">
+            <input type="file" name="file" accept=".xlsx, .xls" required>
+        </div>
+        <button type="submit" class="import-button">Importer</button>
+    </form>
+    <p th:if="${message}" th:text="${message}" class="message"></p>
+</div>
+
+<form method="get" th:action="@{/contrats}" class="top-right-form">
+    <button type="submit" class="btn btn-primary">Find Contrat</button>
+</form>
+</body>
+</html>

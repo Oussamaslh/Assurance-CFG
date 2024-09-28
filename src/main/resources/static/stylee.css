@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start; /* Align items at the top */
+    justify-content: center; /* Center the container */
+    position: relative;
+    background-color: #f0f4f8; /* Light background color for contrast */
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('cfg.jpg'); /* Your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    filter: blur(7px); /* Adjust blur strength */
+    z-index: -1; /* Ensure it stays behind the content */
+}
+
+.logo {
+    position: absolute; /* Positions the logo relative to the nearest positioned ancestor */
+    top: 20px; /* Adjusted from 10px to 20px for better visibility */
+    left: 20px; /* Adjusted from 10px to 20px for better visibility */
+    width: 150px; /* Sets the width of the logo */
+    height: auto; /* Ensures the aspect ratio is maintained */
+    padding: 10px; /* Adds some space around the logo */
+    border-radius: 50%; /* Rounds the corners of the logo (circular if square image) */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+}
+
+.container {
+    position: relative;
+    max-width: 800px; /* Updated for a more compact layout */
+    width: 100%;
+    margin: 20px auto; /* Center the container */
+    border-radius: 6px;
+    padding: 20px; /* Added padding for better spacing */
+    background-color: #ffffff; /* White background for the form */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+    z-index: 1; /* Ensure it stays above the background */
+}
+
+.container header {
+    font-size: 24px; /* Increased font size for visibility */
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px; /* Added margin below the header */
+    text-align: center; /* Centered the header text */
+}
+
+.container form {
+    position: relative;
+    background-color: #f9f9f9; /* Light grey background for the form */
+    border-radius: 6px; /* Rounded corners for the form */
+    padding: 20px; /* Added padding for better spacing */
+}
+
+.container form .title {
+    font-size: 16px;
+    margin-bottom: 10px; /* Increased margin for better spacing */
+    font-weight: 500;
+    color: #333;
+}
+
+.container form .fields {
+    display: grid; /* Changed to grid for a more modern layout */
+    grid-template-columns: repeat(2, 1fr); /* Two columns layout */
+    gap: 15px; /* Gap between fields */
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field span {
+    font-size: 12px; /* Label font size */
+    font-weight: 500;
+    color: #555; /* Darker grey for labels */
+}
+
+.input-field input {
+    outline: none;
+    font-size: 14px;
+    color: #333;
+    border-radius: 5px;
+    border: 1px solid #ccc; /* Light grey border */
+    padding: 10px; /* Padding for input fields */
+    height: 40px; /* Height of input */
+    transition: border-color 0.3s; /* Smooth transition for focus */
+}
+
+.input-field input:focus {
+    border-color: #007BFF; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue shadow on focus */
+}
+
+.container form button {
+    display: block;
+    width: 100%; /* Full-width button */
+    padding: 12px; /* Padding for button */
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
+    margin-top: 20px; /* Space above button */
+}
+
+.container form button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.top-right-form {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.top-right-form button {
+    padding: 8px 16px;
+    background-color: #007BFF; /* Blue background */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.top-right-form button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.import-section {
+    position: absolute; /* Position the import section absolutely */
+    top: 500px; /* Adjust the top position */
+    right: 10px; /* Push it to the far right */
+    background-color: #ffffff; /* White background for contrast */
+    border-radius: 6px; /* Rounded corners */
+    padding: 20px; /* Padding for spacing */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+}
+
+.import-section h2 {
+    font-size: 24px; /* Header font size */
+    margin-bottom: 15px; /* Space below header */
+    color: #333; /* Dark color for text */
+    text-align: center; /* Centered text */
+}
+
+.import-form {
+    display: flex; /* Flexbox for alignment */
+    flex-direction: column; /* Column layout */
+    align-items: center; /* Center items */
+}
+
+.import-form .input-field {
+    width: 100%; /* Full width */
+    margin-bottom: 15px; /* Space below input */
+}
+
+.import-form input[type="file"] {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding for input */
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s; /* Smooth transition for focus */
+}
+
+.import-form input[type="file"]:focus {
+    border-color: #007BFF; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Blue shadow on focus */
+}
+
+.import-button {
+    padding: 12px 20px; /* Button padding */
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s; /* Smooth transition */
+    width: 100%; /* Full width */
+}
+
+.import-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.message {
+    margin-top: 10px; /* Space above message */
+    color: #28a745; /* Green color for success messages */
+    text-align: center; /* Centered text */
+}
